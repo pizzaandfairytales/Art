@@ -8,9 +8,9 @@ namespace Art
 {
     public class FishEye : Filter
     {
-        public Layer<ArtColor> Filter(Layer<ArtColor> input)
+        public ArtLayer Filter(ArtLayer input)
         {
-            var result = new Layer<ArtColor>(input.size);
+            var result = new ArtLayer(input.size);
             var buffer = new Grid<ArtColor>(input.size);
             foreach (var C in input.size.EachPoint())
             {
@@ -24,9 +24,9 @@ namespace Art
 
     public class Blur : Filter
     {
-        public Layer<ArtColor> Filter(Layer<ArtColor> input)
+        public ArtLayer Filter(ArtLayer input)
         {
-            var result = new Layer<ArtColor>(input.size);
+            var result = new ArtLayer(input.size);
             var buffer = new Grid<ArtColor>(input.size);
             foreach (var C in input.size.EachPoint())
             {

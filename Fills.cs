@@ -20,4 +20,23 @@ namespace Art
             }
         }
     }
+
+    class CheckerColor : Fill
+    {
+        public ArtColor Fill(CommonInfo info)
+        {
+            if (info.Palette.Count < 2)
+            {
+                throw new Exception("Insufficient or bad data");
+            }
+            if ((info.Position.row.FloorDivide(info.PatternScale) % 2) != (info.Position.col.FloorDivide(info.PatternScale) % 2))
+            {
+                return info.Palette[0];
+            } else
+            {
+                return info.Palette[1];
+            }
+                
+        }
+    }
 }

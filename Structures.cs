@@ -187,6 +187,27 @@ namespace Art
 
             return result;
         }
+
+        private System.Drawing.Bitmap ToBMP()
+        {
+            var img = newBMP(Size);
+            var canvas = Render();
+            foreach (var C in canvas.EachCell())
+            {
+                img.SetPixel(C.loc.row, C.loc.col, C.value.Render());
+            }
+            return img;
+        }
+
+        private System.Drawing.Bitmap newBMP(Coord arg_size)
+        {
+            var pixelFormat = System.Drawing.Imaging.PixelFormat.Format24bppRgb;
+            return new System.Drawing.Bitmap(arg_size.row, arg_size.col, pixelFormat);
+        }
+        public void saveBMP(string name)
+        {
+            ToBMP().Save("../../ImgOutput/" + name + ".bmp");//".png", System.Drawing.Imaging.ImageFormat.Png);
+        }
     }
 
     public class Layer<T> where T : new()
@@ -301,13 +322,13 @@ namespace Art
     // Should modify a layer
     public interface Filter
     {
-        Layer<ArtColor> Filter(Layer<ArtColor> input);
+        ArtLayer Filter(ArtLayer input);
     }
 
     // should generate layers at a high level
     public interface Generator
     {
-        Layer<ArtColor> Generate(CommonInfo info);
+        ArtLayer Generate(CommonInfo info);
     }
 
     // should generate colors at a low level. Separate from Generator to promote reuse
@@ -319,7 +340,7 @@ namespace Art
     // Should handle an entire image's creation with no parameters
     public interface Workflow
     {
-        System.Drawing.Bitmap Create();
+        void Create(string filename);
     }
 
     // this should be populated with any properties that are useful in a lot of different workflows

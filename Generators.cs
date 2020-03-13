@@ -9,19 +9,19 @@ namespace Art
     public class Hilbert : Generator
     {
         CommonInfo Info;
-        public Layer<ArtColor> Generate(CommonInfo _Info)
+        public ArtLayer Generate(CommonInfo _Info)
         {
             Info = _Info;
-            var result = new Layer<ArtColor>(Info.Size);
+            var result = new ArtLayer(Info.Size);
             var curve = HilbertCurve.GenerateHilbertCurve(HilbertIterationsRequired());
             // inflate curve to gridSize (this could be a grid method eventually)
-            var temp = new Grid<bool>(curve.gridSize.Times(32));
+            var temp = new Grid<bool>(curve.gridSize.Times(Info.PatternScale));
             foreach (Cell<bool> C in curve.EachCell())
             {
                 bool value = curve.GetCell(C.loc);
-                foreach (var C2 in Methods.EachPoint(new Coord(32)))
+                foreach (var C2 in Methods.EachPoint(new Coord(Info.PatternScale)))
                 {
-                    temp.SetCell(C.loc.Times(32).Plus(C2), value);
+                    temp.SetCell(C.loc.Times(Info.PatternScale).Plus(C2), value);
                 }
             }
             curve = temp;
@@ -37,10 +37,7 @@ namespace Art
                 {
                     Info.Phase = 1;
                 }
-                Info.Palette.Add(ArtColor.White.Blend(ArtColor.White, 75));
-                Info.Palette.Add(ArtColor.Green.Blend(ArtColor.Red, 25));
                 Info.Position = cell.loc;
-                Info.Size = _Info.Size;
                 ArtColor color = Info.Fill.Fill(Info);
                 result.grid.SetCell(cell.loc, color);
             }
@@ -238,9 +235,9 @@ namespace Art
 
     public class Flat : Generator
     {
-        public Layer<ArtColor> Generate(CommonInfo info)
+        public ArtLayer Generate(CommonInfo info)
         {
-            var result = new Layer<ArtColor>(info.Size);
+            var result = new ArtLayer(info.Size);
             foreach (var point in info.Size.EachPoint())
             {
                 var fillInfo = new CommonInfo();
