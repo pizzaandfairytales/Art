@@ -1,0 +1,1 @@
+﻿	It doesn't really make sense to have Opacity as a generic Layer property. It's more properly a Layer<ArtColor> property, and even then, it's vastly more flexible to have ArtColor and Layer<ArtColor> track their opacity individually (in which case I will have to redo the math for blending layers).
