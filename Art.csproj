@@ -47,6 +47,7 @@
     <Compile Include="Fills.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Filters.cs" />
+    <Compile Include="Methods.cs" />
     <Compile Include="Structures.cs" />
     <Compile Include="Generators.cs" />
     <Compile Include="Program.cs" />

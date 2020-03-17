@@ -105,6 +105,9 @@ namespace Art
         public static readonly ArtColor Red = new ArtColor(255, 0, 0);
         public static readonly ArtColor Green = new ArtColor(0, 255, 0);
         public static readonly ArtColor Blue = new ArtColor(0, 0, 255);
+        public static readonly ArtColor Cyan = new ArtColor(0, 255, 255);
+        public static readonly ArtColor Yellow = new ArtColor(255, 255, 0);
+        public static readonly ArtColor Magenta = new ArtColor(255, 0, 255);
 
         public ArtColor Blend(ArtColor mixer, int mixerPercent = 50)
         {
@@ -358,77 +361,6 @@ namespace Art
         public CommonInfo()
         {
             Palette = new List<ArtColor>();
-        }
-    }
-
-    public static class Methods
-    {
-        public static int Clamp(this int val, int min, int max)
-        {
-            return Math.Min(Math.Max(val, min), max);
-        }
-
-        public static int FloorDivide(this int numerator, int denominator)
-        {
-            return (int)(Math.Floor(numerator / (double)denominator));
-        }
-
-        public static int FloorDivide(this int numerator, double denominator)
-        {
-            return (int)(Math.Floor(numerator / denominator));
-        }
-
-        public static int FloorDivide(this double numerator, int denominator)
-        {
-            return (int)(Math.Floor(numerator / denominator));
-        }
-
-        public static int FloorDivide(this double numerator, double denominator)
-        {
-            return (int)(Math.Floor(numerator / denominator));
-        }
-
-        public static double Divide(this int numerator, int denominator)
-        {
-            return (double)numerator / denominator;
-        }
-
-        public static List<Coord> EachPoint(this Coord range)
-        {
-            var result = new List<Coord>();
-            for (int row = 0; row < range.row; row++)
-            {
-                for (int col = 0; col < range.col; col++)
-                {
-                    result.Add(new Coord(row, col));
-                }
-            }
-            return result;
-        }
-
-        public static List<List<T>> InitializeRect<T>(this List<List<T>> rect, Coord size) where T : new()
-        {
-            var result = new List<List<T>>();
-            for (int row = 0; row < size.row; row++)
-            {
-                var r = new List<T>();
-                for (int col = 0; col < size.col; col++)
-                {
-                    r.Add(new T());
-                }
-                result.Add(r);
-            }
-            return result;
-        }
-
-        public static Grid<T> ToGrid<T>(this List<T> list, Coord size) where T : new()
-        {
-            var grid = new Grid<T>(size);
-            foreach (var C in grid.EachCell())
-            {
-                C.value = list[(C.loc.row * size.col) + C.loc.col];
-            }
-            return grid;
         }
     }
 }

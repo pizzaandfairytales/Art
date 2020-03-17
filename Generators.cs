@@ -240,8 +240,7 @@ namespace Art
             var result = new ArtLayer(info.Size);
             foreach (var point in info.Size.EachPoint())
             {
-                var fillInfo = new CommonInfo();
-                fillInfo.Position = point;
+                info.Position = point;
                 result.grid.SetCell(point, info.Fill.Fill(info));
             }
             return result;

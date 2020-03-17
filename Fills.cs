@@ -25,17 +25,10 @@ namespace Art
     {
         public ArtColor Fill(CommonInfo info)
         {
-            if (info.Palette.Count < 2)
-            {
-                throw new Exception("Insufficient or bad data");
-            }
-            if ((info.Position.row.FloorDivide(info.PatternScale) % 2) != (info.Position.col.FloorDivide(info.PatternScale) % 2))
-            {
-                return info.Palette[0];
-            } else
-            {
-                return info.Palette[1];
-            }
+            var num = info.Palette.Count;
+            var rowVal = info.Position.row.FloorDivide(info.PatternScale) % num;
+            var colVal = info.Position.col.FloorDivide(info.PatternScale) % num;
+            return info.Palette[((rowVal - colVal) + num) % num];
                 
         }
     }
