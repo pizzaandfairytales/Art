@@ -11,7 +11,7 @@ namespace Art
     {
         public void Create(string filename)
         {
-            var size = new Coord(1024, 1024);
+            var size = new Coord(2048, 2048);
             Layerbook layers = new Layerbook(size);
             var info = new CommonInfo();
             info.Fill = new CheckerColor();
@@ -19,10 +19,11 @@ namespace Art
             info.Palette.Add(ArtColor.Cyan);
             info.Palette.Add(ArtColor.Yellow);
             info.Palette.Add(ArtColor.Magenta);
-            info.Palette.Add(ArtColor.Black);
+            info.Palette.Add(ArtColor.White);
             info.Palette = Methods.PaletteExploder(info.Palette, 8, true);
             info.PatternScale = 8;
-            layers.Add(new Flat().Generate(info));
+            var layer = new Flat().Generate(info);
+            layers.Add(new FishEye().Filter(layer));
             layers.saveBMP(filename);
         }
 

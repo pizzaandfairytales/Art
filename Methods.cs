@@ -38,6 +38,11 @@ namespace Art
             return (double)numerator / denominator;
         }
 
+        public static int FloorTimes(this int num, double factor)
+        {
+            return (int)(Math.Floor(num * factor));
+        }
+
         public static List<Coord> EachPoint(this Coord range)
         {
             var result = new List<Coord>();

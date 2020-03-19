@@ -60,13 +60,29 @@ namespace Art
         {
             return new Coord(row * factor, col * factor);
         }
+        public Coord FloorTimes(double factor)
+        {
+            return new Coord(row.FloorTimes(factor), col.FloorTimes(factor));
+        }
         public Coord Plus(Coord offset)
         {
             return new Coord(row + offset.row, col + offset.col);
         }
+        public Coord Minus(Coord offset)
+        {
+            return new Coord(row - offset.row, col - offset.col);
+        }
+        public Coord Difference(Coord offset)
+        {
+            return new Coord(Math.Abs(row - offset.row), Math.Abs(col - offset.col));
+        }
         public Coord FloorDivide(int factor)
         {
             return new Coord(row.FloorDivide(factor), col.FloorDivide(factor));
+        }
+        public Coord Between(Coord offset, double factor)
+        {
+            return offset.Minus(this).FloorTimes(factor).Plus(this);
         }
     }
 

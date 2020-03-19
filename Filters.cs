@@ -12,10 +12,15 @@ namespace Art
         {
             var result = new ArtLayer(input.size);
             var buffer = new Grid<ArtColor>(input.size);
+            var center = new Coord(input.size.row.FloorDivide(2), input.size.col.FloorDivide(2));
             foreach (var C in input.size.EachPoint())
             {
-                var fishbowl = C.FloorDivide(20).Plus(C);
-                buffer.SetCell(C, input.grid.GetCell(fishbowl));
+                var distance = C.Difference(center);
+                var avg = Math.Max((distance.row + distance.col).FloorDivide(2), 1);
+                var factor = Math.Sqrt(avg) / avg;
+                //var factor = new Coord((int)(Math.Floor(Math.Sqrt(factor.row))), (int)(Math.Floor(Math.Sqrt(factor.col))));
+                var fisheye = C.Between(center, factor);
+                buffer.SetCell(C, input.grid.GetCell(fisheye));
             }
             result.grid = buffer;
             return result;
